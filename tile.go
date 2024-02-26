@@ -6,16 +6,16 @@ type Tile struct {
 }
 
 // Draw docstring
-func (t *Tile) Draw(img TileImage) {
-	img.DrawAt(t.buffered, t.X, t.Y)
+func (t *Tile) Draw(img *EbitImage) {
+	img.DrawAt(t.buffered, t.GlobalX, t.GlobalY)
 }
 
 // Redraw docstring
-func (t *Tile) Redraw() TileImage {
+func (t *Tile) Redraw() *EbitImage {
 	return t.buffered
 }
 
-func (t *Tile) DrawRow3D(img TileImage, _, level int) {
+func (t *Tile) DrawRow3D(img *EbitImage, _, level int) {
 	if (level > len(t.layers3d)) && (t.layers3d[level] != nil) {
 		t.layers3d[level].Draw(img)
 	}
