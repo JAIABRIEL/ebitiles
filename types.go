@@ -5,6 +5,9 @@ package tilemap
 type Quad interface {
 	Redraw() TileImage
 	GetTile(int, int) *Tile
+	DrawRow3D(TileImage, int, int)
+	Draw(TileImage)
+	GiveBirth(int)
 }
 
 // Image is a placeholder for your own draw function
