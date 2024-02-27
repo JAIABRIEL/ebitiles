@@ -10,7 +10,9 @@ type Tile struct {
 
 // Draw docstring
 func (t *Tile) Draw(img *ebiten.Image) {
-	// img.DrawAt(t.buffered, t.GlobalX, t.GlobalY)
+	op := &ebiten.DrawImageOptions{}
+	op.GeoM.Translate(float64(t.GlobalX), float64(t.GlobalY))
+	img.DrawImage(t.buffered, op)
 }
 
 // Redraw docstring
