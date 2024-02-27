@@ -13,6 +13,11 @@ func (t *Tile) Draw(img *EbitImage) {
 
 // Redraw docstring
 func (t *Tile) Redraw() *EbitImage {
+	t.buffered.Clear()
+
+	for _, l := range t.Layers {
+		t.buffered.DrawAt(l, 0, 0)
+	}
 	return t.buffered
 }
 
