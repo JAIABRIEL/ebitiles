@@ -23,6 +23,8 @@ type Chunk struct {
 
 func (c *Chunk) InsertTile(img *ebiten.Image, x, y, layer int) {
 	fmt.Println("insert tile at chunk", x, y)
+	fmt.Println("gpos", c.GlobalX, c.GlobalY)
+	fmt.Println("sizes", c.Size, c.sizeHalf)
 	c.quads[c.posToIndex(x, y)].InsertTile(
 		img,
 		x-(x/c.sizeHalf*c.sizeHalf),
@@ -43,8 +45,7 @@ func (c *Chunk) GetTile(x, y int) *Tile {
 }
 
 func (c *Chunk) posToIndex(x, y int) int {
-	// return (x/c.sizeHalf)%2 + ((y/c.sizeHalf)%2)*2
-	return (x/c.sizeHalf)*2 + y/c.sizeHalf
+	return (x / c.sizeHalf) + (y/c.sizeHalf)*2
 }
 
 func (c *Chunk) Redraw() *ebiten.Image {
