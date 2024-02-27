@@ -8,8 +8,6 @@ type Tile struct {
 	Layers   []*ebiten.Image
 	layers3d []*Layer3D
 	Chunk
-
-	isActive bool
 }
 
 // Draw docstring

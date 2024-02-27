@@ -17,9 +17,12 @@ type Chunk struct {
 
 	tileSize int
 	sizeHalf int
+
+	isActive bool
 }
 
 func (c *Chunk) InsertTile(img *ebiten.Image, x, y, layer int) {
+	c.isActive = true
 	c.quads[c.posToIndex(x, y)].InsertTile(
 		img,
 		x-(x/c.sizeHalf*c.sizeHalf),
@@ -44,6 +47,9 @@ func (c *Chunk) posToIndex(x, y int) int {
 }
 
 func (c *Chunk) Redraw() *ebiten.Image {
+	if !c.isActive {
+		return c.buffered
+	}
 	c.buffered.Clear()
 
 	for i := range c.quads {
