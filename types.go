@@ -1,14 +1,17 @@
 // Package tilemap docstring
 package tilemap
 
+import "github.com/hajimehoshi/ebiten/v2"
+
 // Quad is a basic quad tree interface
 type Quad interface {
-	Redraw() *EbitImage
+	Redraw() *ebiten.Image
 	GetTile(int, int) *Tile
-	DrawRow3D(*EbitImage, int, int)
-	Draw(*EbitImage)
+	DrawRow3D(*ebiten.Image, int, int)
+	Draw(*ebiten.Image)
 	GetByLevel(int, int, int) Quad
-	init(int)
+	Create(ChunkLevel, int, int, int, int, int)
+	InsertTile(*ebiten.Image, int, int, int)
 }
 
 // Image is a placeholder for your own draw function
