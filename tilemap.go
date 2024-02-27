@@ -1,6 +1,7 @@
 package tilemap
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -16,10 +17,15 @@ type TileMap struct {
 }
 
 func (tm *TileMap) InsertTile(img *ebiten.Image, x, y, layer int) {
+	fmt.Println("Insert Tile:", x, y, tm.translatePos(x), tm.translatePos(y))
+	fmt.Println(tm.toPositive(x), tm.toPositive(y))
+	fmt.Println(tm.posToIndex(tm.toPositive(x), tm.toPositive(y)))
 	tm.quads[tm.posToIndex(tm.toPositive(x), tm.toPositive(y))].InsertTile(
 		img,
-		x-(x/tm.sizeHalf*tm.sizeHalf),
-		y-(y/tm.sizeHalf),
+		tm.translatePos(x),
+		tm.translatePos(y),
+		// x-(x/tm.sizeHalf*tm.sizeHalf),
+		// y-(y/tm.sizeHalf),
 		layer)
 }
 
@@ -61,9 +67,10 @@ func (tm *TileMap) translatePos(p int) int {
 
 // toPositive translates the position to a positive tilemap starting from 0
 func (tm *TileMap) toPositive(i int) int {
-	return tm.size - (i + tm.sizeHalf)
+	return (i + tm.sizeHalf)
 }
 
 func (tm *TileMap) posToIndex(x, y int) int {
-	return (x/tm.sizeHalf)%2 + ((y/tm.sizeHalf)%2)*2
+	// return (y%2)*2 + x%2
+	return (x / tm.sizeHalf) + (y/tm.sizeHalf)*2
 }

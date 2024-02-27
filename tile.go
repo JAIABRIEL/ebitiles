@@ -1,6 +1,8 @@
 package tilemap
 
 import (
+	"fmt"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -8,13 +10,17 @@ type Tile struct {
 	Layers   []*ebiten.Image
 	layers3d []*Layer3D
 	Chunk
+
+	isActive bool
 }
 
 // Draw docstring
 func (t *Tile) Draw(img *ebiten.Image) {
-	op := &ebiten.DrawImageOptions{}
-	op.GeoM.Translate(float64(t.GlobalX), float64(t.GlobalY))
-	img.DrawImage(t.buffered, op)
+	if t.isActive {
+		op := &ebiten.DrawImageOptions{}
+		op.GeoM.Translate(float64(t.GlobalX), float64(t.GlobalY))
+		img.DrawImage(t.buffered, op)
+	}
 }
 
 // Redraw docstring
@@ -57,5 +63,7 @@ func (t *Tile) Create(_ ChunkLevel, size, tileSize, layerAmount, globalX, global
 }
 
 func (t *Tile) InsertTile(img *ebiten.Image, x, y, layer int) {
+	fmt.Println("insert tile at", t.GlobalX, t.GlobalY)
+	t.isActive = true
 	t.Layers[layer] = img
 }

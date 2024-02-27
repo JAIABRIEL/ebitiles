@@ -1,6 +1,8 @@
 package tilemap
 
 import (
+	"fmt"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -20,6 +22,7 @@ type Chunk struct {
 }
 
 func (c *Chunk) InsertTile(img *ebiten.Image, x, y, layer int) {
+	fmt.Println("insert tile at chunk", x, y)
 	c.quads[c.posToIndex(x, y)].InsertTile(
 		img,
 		x-(x/c.sizeHalf*c.sizeHalf),
@@ -40,7 +43,8 @@ func (c *Chunk) GetTile(x, y int) *Tile {
 }
 
 func (c *Chunk) posToIndex(x, y int) int {
-	return (x/c.sizeHalf)%2 + ((y/c.sizeHalf)%2)*2
+	// return (x/c.sizeHalf)%2 + ((y/c.sizeHalf)%2)*2
+	return (x/c.sizeHalf)*2 + y/c.sizeHalf
 }
 
 func (c *Chunk) Redraw() *ebiten.Image {
@@ -79,8 +83,11 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 	c.tileSize = tileSize
 	c.GlobalX = globalX
 	c.GlobalY = globalY
+
 	if chunkLevel > 1 {
 		for i := range c.quads {
+			fmt.Println("translate x", globalX, globalX+(i%2)*c.sizeHalf)
+			fmt.Println("translate y", globalY, globalY+(i%2)*c.sizeHalf)
 			c.quads[i] = &Chunk{}
 			c.quads[i].Create(chunkLevel-1,
 				c.sizeHalf,
