@@ -1,6 +1,7 @@
 package tilemap
 
 type Tile struct {
+	Layers   []*EbitImage
 	layers3d []*Layer3D
 	Chunk
 }
