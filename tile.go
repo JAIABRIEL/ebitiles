@@ -18,7 +18,7 @@ type Tile struct {
 func (t *Tile) Draw(img *ebiten.Image) {
 	if t.isActive {
 		op := &ebiten.DrawImageOptions{}
-		op.GeoM.Translate(float64(t.GlobalX), float64(t.GlobalY))
+		op.GeoM.Translate(float64(t.GlobalX*t.tileSize), float64(t.GlobalY*t.tileSize))
 		img.DrawImage(t.buffered, op)
 	}
 }
