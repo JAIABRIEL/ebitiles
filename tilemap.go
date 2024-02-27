@@ -54,6 +54,13 @@ func (tm *TileMap) Redraw() {
 	}
 }
 
+func (tm *TileMap) GetChunkByLevel(x, y, level int) Quad {
+	return tm.quads[tm.posToIndex(tm.toPositive(x), tm.toPositive(y))].GetByLevel(
+		tm.translatePos(x),
+		tm.translatePos(y),
+		level)
+}
+
 func (tm *TileMap) Draw(img *ebiten.Image) {
 	for _, q := range tm.quads {
 		q.Draw(img)
