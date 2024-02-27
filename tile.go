@@ -24,3 +24,7 @@ func (t *Tile) DrawRow3D(img *EbitImage, _, level int) {
 func (t *Tile) GetTile(_, _ int) *Tile {
 	return t
 }
+
+func (t *Tile) GetByLevel(_, _, _ int) Quad {
+	return t
+}

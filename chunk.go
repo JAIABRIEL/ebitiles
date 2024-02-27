@@ -70,6 +70,17 @@ func (c *Chunk) init(chunkLevel int) {
 	}
 }
 
+func (c *Chunk) GetByLevel(x, y, chunkLevel int) Quad {
+	if chunkLevel == 0 {
+		return c
+	} else {
+		return c.quads[c.posToIndex(x, y)].GetByLevel(
+			x-(x/c.sizeHalf*c.sizeHalf),
+			y-(y/c.sizeHalf*c.sizeHalf),
+			chunkLevel-1)
+	}
+}
+
 func NewChunk(chunkLevel, tileSize int) *Chunk {
 	c := &Chunk{
 		Size:     int(math.Pow(2, 10)),

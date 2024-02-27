@@ -7,6 +7,7 @@ type Quad interface {
 	GetTile(int, int) *Tile
 	DrawRow3D(*EbitImage, int, int)
 	Draw(*EbitImage)
+	GetByLevel(int, int, int) Quad
 	init(int)
 }
 
