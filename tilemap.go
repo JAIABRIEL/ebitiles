@@ -1,7 +1,6 @@
 package tilemap
 
 import (
-	"fmt"
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -17,9 +16,6 @@ type TileMap struct {
 }
 
 func (tm *TileMap) InsertTile(img *ebiten.Image, x, y, layer int) {
-	fmt.Println("Insert Tile:", x, y, tm.translatePos(x), tm.translatePos(y))
-	fmt.Println(tm.toPositive(x), tm.toPositive(y))
-	fmt.Println(tm.posToIndex(tm.toPositive(x), tm.toPositive(y)))
 	tm.quads[tm.posToIndex(tm.toPositive(x), tm.toPositive(y))].InsertTile(
 		img,
 		tm.translatePos(x),

@@ -1,8 +1,6 @@
 package tilemap
 
 import (
-	"fmt"
-
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -25,8 +23,8 @@ func (t *Tile) Draw(img *ebiten.Image) {
 
 // Redraw docstring
 func (t *Tile) Redraw() *ebiten.Image {
-	if t.buffered == nil {
-		t.buffered = ebiten.NewImage(t.tileSize, t.tileSize)
+	if !t.isActive {
+		return t.buffered
 	}
 	t.buffered.Clear()
 
@@ -63,7 +61,6 @@ func (t *Tile) Create(_ ChunkLevel, size, tileSize, layerAmount, globalX, global
 }
 
 func (t *Tile) InsertTile(img *ebiten.Image, x, y, layer int) {
-	fmt.Println("insert tile at", t.GlobalX, t.GlobalY)
 	t.isActive = true
 	t.Layers[layer] = img
 }
