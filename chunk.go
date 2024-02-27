@@ -1,8 +1,6 @@
 package tilemap
 
 import (
-	"fmt"
-
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -88,8 +86,8 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 				c.sizeHalf,
 				tileSize,
 				layerAmount,
-				-c.sizeHalf+(i%2)*c.sizeHalf,
-				-c.sizeHalf+(i/2)*c.sizeHalf)
+				globalX+(i%2)*c.sizeHalf,
+				globalY+(i/2)*c.sizeHalf)
 			// c.translateNegativePos(globalX),
 			// c.translateNegativePos(globalY))
 		}
@@ -100,14 +98,14 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 				c.sizeHalf,
 				tileSize,
 				layerAmount,
-				-c.sizeHalf+(i%2)*c.sizeHalf,
-				-c.sizeHalf+(i/2)*c.sizeHalf)
+				globalX+(i%2)*c.sizeHalf,
+				globalY+(i/2)*c.sizeHalf)
 
 			// c.translatePos(globalX),
 			// c.translatePos(globalY))
 		}
 	}
-	fmt.Println("pos", globalX, c.translatePos(globalX))
+	// fmt.Println("pos", globalX, c.translatePos(globalX))
 }
 
 func (c *Chunk) translatePos(p int) int {
