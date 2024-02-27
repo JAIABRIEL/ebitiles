@@ -13,6 +13,10 @@ func (t *Tile) Draw(img *EbitImage) {
 
 // Redraw docstring
 func (t *Tile) Redraw() *EbitImage {
+	if t.buffered == nil {
+		t.buffered = &EbitImage{}
+		t.buffered.Init(t.tileSize, t.tileSize, t.tileSize)
+	}
 	t.buffered.Clear()
 
 	for _, l := range t.Layers {
