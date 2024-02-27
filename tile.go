@@ -1,6 +1,8 @@
 package tilemap
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 type Tile struct {
 	Layers   []*ebiten.Image

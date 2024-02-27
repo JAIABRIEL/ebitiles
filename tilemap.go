@@ -1,6 +1,7 @@
 package tilemap
 
 import (
+	"fmt"
 	"math"
 
 	"github.com/hajimehoshi/ebiten/v2"
@@ -33,6 +34,8 @@ func (tm *TileMap) Create(level ChunkLevel, tileSize int, layerAmount int) {
 			Size: tm.size / 2,
 		}
 
+		fmt.Println("X:", -tm.sizeHalf+(i%2)*tm.sizeHalf)
+		fmt.Println("Y:", -tm.sizeHalf+(i/2)*tm.sizeHalf)
 		tm.quads[i].Create(level-1,
 			tm.sizeHalf,
 			tileSize,

@@ -1,6 +1,8 @@
 package tilemap
 
 import (
+	"fmt"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -86,8 +88,10 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 				c.sizeHalf,
 				tileSize,
 				layerAmount,
-				c.translatePos(globalX),
-				c.translatePos(globalY))
+				-c.sizeHalf+(i%2)*c.sizeHalf,
+				-c.sizeHalf+(i/2)*c.sizeHalf)
+			// c.translateNegativePos(globalX),
+			// c.translateNegativePos(globalY))
 		}
 	} else {
 		for i := range c.quads {
@@ -96,12 +100,26 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 				c.sizeHalf,
 				tileSize,
 				layerAmount,
-				c.translatePos(globalX),
-				c.translatePos(globalY))
+				-c.sizeHalf+(i%2)*c.sizeHalf,
+				-c.sizeHalf+(i/2)*c.sizeHalf)
+
+			// c.translatePos(globalX),
+			// c.translatePos(globalY))
 		}
 	}
+	fmt.Println("pos", globalX, c.translatePos(globalX))
 }
 
 func (c *Chunk) translatePos(p int) int {
 	return p - p/c.sizeHalf*c.sizeHalf
+}
+
+func (tm *Chunk) translateNegativePos(p int) int {
+	p = tm.toPositive(p)
+	return p - (p/tm.sizeHalf)*tm.sizeHalf
+}
+
+// toPositive translates the position to a positive tilemap starting from 0
+func (tm *Chunk) toPositive(i int) int {
+	return tm.Size - (i + tm.sizeHalf)
 }
