@@ -2,14 +2,14 @@
 
 **This is under heavy development and there WILL be many breaking changes soon.**
 
-This library allows the creation of tile maps of size `2^n`.
+This library allows the creation of tile maps of size $`2^n`$.
 At the moment, it simply supports storing and drawing tiles at a given position and layer.
 
 ## Current Features
 
 * Place tiles (`*ebiten.Image`) at position and layer.
 * Tiles draw their layers on each other and will buffer the result for fast performance.
-* Just draw chunks of given level (chunk at level 3 is 8x8 tiles).
+* Just draw chunks of given level (chunk at level 3 is 8x8 tiles) without drawing the entire map.
 
 
 ## Planned Features
