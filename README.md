@@ -5,6 +5,8 @@
 This library allows the creation of tile maps of size $`2^n`$.
 At the moment, it simply supports storing and drawing tiles at a given position and layer.
 
+![example_animated](https://github.com/JAIABRIEL/ebitiles/assets/31685376/d828405b-ab0f-4a2a-b8da-9cd4797d42cb)
+
 ## Current Features
 
 * Place tiles (`*ebiten.Image`) at position and layer.
