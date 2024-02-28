@@ -96,7 +96,7 @@ func (t *Tile) InsertTile(img *ebiten.Image, _, _, layer int) {
 func (t *Tile) InsertTileAnimated(
 	imgs []*ebiten.Image,
 	ap *gonimator.AnimationPlayer[int],
-	layer int,
+	layer, _, _ int,
 ) {
 	t.isActive = true
 

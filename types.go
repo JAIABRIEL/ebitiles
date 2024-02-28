@@ -1,6 +1,9 @@
 package ebitiles
 
-import "github.com/hajimehoshi/ebiten/v2"
+import (
+	"github.com/JAIABRIEL/gonimator"
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 // Quad is a basic quad tree interface.
 // It's implemented by Chunk and Tile.
@@ -33,6 +36,8 @@ type Quad interface {
 	// Image size should be equal to tile size.
 	// Using different sized images might result in very shady results.
 	InsertTile(*ebiten.Image, int, int, int)
+
+	InsertTileAnimated([]*ebiten.Image, *gonimator.AnimationPlayer[int], int, int, int)
 
 	// SetActive enables/disables this Quad.
 	// It won't be drawn on given images and wont be redrawn.

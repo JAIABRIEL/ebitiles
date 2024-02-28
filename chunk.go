@@ -1,6 +1,7 @@
 package ebitiles
 
 import (
+	"github.com/JAIABRIEL/gonimator"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -25,6 +26,20 @@ func (c *Chunk) InsertTile(img *ebiten.Image, x, y, layer int) {
 		c.translatePos(x),
 		c.translatePos(y),
 		layer)
+}
+
+func (c *Chunk) InsertTileAnimated(
+	imgs []*ebiten.Image,
+	ap *gonimator.AnimationPlayer[int],
+	layer, x, y int,
+) {
+	c.isActive = true
+	c.quads[c.posToIndex(x, y)].InsertTileAnimated(
+		imgs,
+		ap,
+		layer,
+		c.translatePos(x),
+		c.translatePos(y))
 }
 
 // DrawRow3D is still WIP and will be implemented when 3D is introducted

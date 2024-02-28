@@ -38,12 +38,12 @@ func (tm *TileMap) InsertTileAnimated(
 	ap *gonimator.AnimationPlayer[int],
 	layer int, x, y int,
 ) {
-	t := tm.quads[tm.posToIndex(tm.toPositive(x),
-		tm.toPositive(y))].getTile(
+	tm.quads[tm.posToIndex(tm.toPositive(x), tm.toPositive(y))].InsertTileAnimated(
+		imgs,
+		ap,
+		layer,
 		tm.translateNegativePos(x),
 		tm.translateNegativePos(y))
-
-	t.InsertTileAnimated(imgs, ap, layer)
 }
 
 // Create inisializes this TileMap with given parameters.
