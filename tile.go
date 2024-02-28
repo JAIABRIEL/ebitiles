@@ -1,4 +1,4 @@
-package tilemap
+package ebitiles
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"

@@ -1,4 +1,4 @@
-module github.com/JAIABRIEL/go-tilemap
+module github.com/JAIABRIEL/ebitiles
 
 go 1.21.7
 

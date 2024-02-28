@@ -1,4 +1,4 @@
-package tilemap
+package ebitiles
 
 // Translate is a utility struct that implements methods that are
 // required by other structs.

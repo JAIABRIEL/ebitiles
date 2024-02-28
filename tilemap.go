@@ -1,4 +1,4 @@
-package tilemap
+package ebitiles
 
 import (
 	"math"
