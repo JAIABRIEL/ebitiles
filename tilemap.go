@@ -3,6 +3,7 @@ package ebitiles
 import (
 	"math"
 
+	"github.com/JAIABRIEL/gonimator"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -29,6 +30,20 @@ func (tm *TileMap) InsertTile(img *ebiten.Image, x, y, layer int) {
 		tm.translateNegativePos(x),
 		tm.translateNegativePos(y),
 		layer)
+}
+
+// WIP
+func (tm *TileMap) InsertTileAnimated(
+	imgs []*ebiten.Image,
+	ap *gonimator.AnimationPlayer[int],
+	layer int, x, y int,
+) {
+	t := tm.quads[tm.posToIndex(tm.toPositive(x),
+		tm.toPositive(y))].getTile(
+		tm.translateNegativePos(x),
+		tm.translateNegativePos(y))
+
+	t.InsertTileAnimated(imgs, ap, layer)
 }
 
 // Create inisializes this TileMap with given parameters.

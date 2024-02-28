@@ -1,14 +1,19 @@
 package ebitiles
 
 import (
+	"github.com/JAIABRIEL/gonimator"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 // Tile implements quad and is always on the lowest level.
 // It represents a single tile on the map.
 type Tile struct {
-	Layers   []*ebiten.Image
+	Layers   []*Layer
 	layers3d []*Layer3D
+
+	isAnimated       bool
+	alwaysRedrawFrom int
+
 	Chunk
 }
 
@@ -27,11 +32,18 @@ func (t *Tile) Redraw() *ebiten.Image {
 	if !t.isActive {
 		return t.buffered
 	}
-	t.buffered.Clear()
 
-	for _, l := range t.Layers {
+	t.buffered.Clear()
+	t.alwaysRedrawFrom = len(t.Layers) - 1
+
+	for i, l := range t.Layers {
 		if l != nil {
-			t.buffered.DrawImage(l, &ebiten.DrawImageOptions{})
+			if l.IsAnimated {
+				t.alwaysRedrawFrom = i
+				return t.buffered
+			}
+
+			t.buffered.DrawImage(l.Image, &ebiten.DrawImageOptions{})
 		}
 	}
 	return t.buffered
@@ -59,13 +71,35 @@ func (t *Tile) Create(_ ChunkLevel, size, tileSize, layerAmount, globalX, global
 	t.tileSize = tileSize
 	t.GlobalX = globalX
 	t.GlobalY = globalY
+	t.alwaysRedrawFrom = layerAmount - 1
 
 	t.buffered = ebiten.NewImage(tileSize, tileSize)
-	t.Layers = make([]*ebiten.Image, layerAmount)
+	t.Layers = make([]*Layer, layerAmount)
 }
 
 // InsertTile will set an *ebiten.Image on one of this tiles layers.
 func (t *Tile) InsertTile(img *ebiten.Image, _, _, layer int) {
 	t.isActive = true
-	t.Layers[layer] = img
+	t.Layers[layer] = &Layer{
+		Image:    img,
+		DrawPosX: float64(t.GlobalX * t.tileSize),
+		DrawPosY: float64(t.GlobalY * t.tileSize),
+	}
+}
+
+func (t *Tile) InsertTileAnimated(
+	imgs []*ebiten.Image,
+	ap *gonimator.AnimationPlayer[int],
+	layer int,
+) {
+	t.isActive = true
+
+	t.Layers[layer] = &Layer{
+		DrawPosX: float64(t.GlobalX * t.tileSize),
+		DrawPosY: float64(t.GlobalY * t.tileSize),
+
+		IsAnimated:      true,
+		Animation:       imgs,
+		AnimationPlayer: ap,
+	}
 }
