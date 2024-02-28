@@ -13,12 +13,10 @@ type Chunk struct {
 	GlobalX int
 	GlobalY int
 
-	Size int
-
 	tileSize int
-	sizeHalf int
 
 	isActive bool
+	Translate
 }
 
 func (c *Chunk) InsertTile(img *ebiten.Image, x, y, layer int) {
@@ -40,10 +38,6 @@ func (c *Chunk) GetTile(x, y int) *Tile {
 	return c.quads[c.posToIndex(x, y)].GetTile(
 		x-(x/c.sizeHalf*c.sizeHalf),
 		y-(y/c.sizeHalf*c.sizeHalf))
-}
-
-func (c *Chunk) posToIndex(x, y int) int {
-	return (x / c.sizeHalf) + (y/c.sizeHalf)*2
 }
 
 func (c *Chunk) Redraw() *ebiten.Image {
@@ -113,18 +107,4 @@ func (c *Chunk) Create(chunkLevel ChunkLevel, size, tileSize, layerAmount, globa
 		}
 	}
 	// fmt.Println("pos", globalX, c.translatePos(globalX))
-}
-
-func (c *Chunk) translatePos(p int) int {
-	return p - p/c.sizeHalf*c.sizeHalf
-}
-
-func (tm *Chunk) translateNegativePos(p int) int {
-	p = tm.toPositive(p)
-	return p - (p/tm.sizeHalf)*tm.sizeHalf
-}
-
-// toPositive translates the position to a positive tilemap starting from 0
-func (tm *Chunk) toPositive(i int) int {
-	return tm.Size - (i + tm.sizeHalf)
 }
