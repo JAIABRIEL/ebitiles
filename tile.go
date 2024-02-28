@@ -4,13 +4,15 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+// Tile implements quad and is always on the lowest level.
+// It represents a single tile on the map.
 type Tile struct {
 	Layers   []*ebiten.Image
 	layers3d []*Layer3D
 	Chunk
 }
 
-// Draw docstring
+// Draw draws this tiles buffered image on a image based on global position.
 func (t *Tile) Draw(img *ebiten.Image) {
 	if t.isActive {
 		op := &ebiten.DrawImageOptions{}
@@ -19,7 +21,8 @@ func (t *Tile) Draw(img *ebiten.Image) {
 	}
 }
 
-// Redraw docstring
+// Redraw places all of this tiles layers.
+// result is saved in buffer.
 func (t *Tile) Redraw() *ebiten.Image {
 	if !t.isActive {
 		return t.buffered
@@ -34,20 +37,23 @@ func (t *Tile) Redraw() *ebiten.Image {
 	return t.buffered
 }
 
+// DrawRow3D is WIP and doesn't do anything for now.
 func (t *Tile) DrawRow3D(img *ebiten.Image, _, level int) {
 	if (level > len(t.layers3d)) && (t.layers3d[level] != nil) {
 		t.layers3d[level].Draw(img)
 	}
 }
 
-func (t *Tile) GetTile(_, _ int) *Tile {
+func (t *Tile) getTile(_, _ int) *Tile {
 	return t
 }
 
-func (t *Tile) GetByLevel(_, _, _ int) Quad {
+// GetByLevel will return this Tile, since tiles are always on level 0.
+func (t *Tile) GetByLevel(_ ChunkLevel, _, _ int) Quad {
 	return t
 }
 
+// Create sets this tiles parameters.
 func (t *Tile) Create(_ ChunkLevel, size, tileSize, layerAmount, globalX, globalY int) {
 	t.Size = size
 	t.tileSize = tileSize
@@ -58,7 +64,8 @@ func (t *Tile) Create(_ ChunkLevel, size, tileSize, layerAmount, globalX, global
 	t.Layers = make([]*ebiten.Image, layerAmount)
 }
 
-func (t *Tile) InsertTile(img *ebiten.Image, x, y, layer int) {
+// InsertTile will set an *ebiten.Image on one of this tiles layers.
+func (t *Tile) InsertTile(img *ebiten.Image, _, _, layer int) {
 	t.isActive = true
 	t.Layers[layer] = img
 }
