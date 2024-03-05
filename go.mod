@@ -5,6 +5,7 @@ go 1.21.7
 require (
 	github.com/JAIABRIEL/gonimator v0.0.0-20240228125003-37e2a866db20
 	github.com/hajimehoshi/ebiten/v2 v2.6.6
+	github.com/lafriks/go-tiled v0.12.0
 )
 
 require (
