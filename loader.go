@@ -34,7 +34,7 @@ func (l *Loader) Draw(img *ebiten.Image) {
 	for x <= l.ChunkPosX {
 		y := l.ChunkPosY - l.Radius
 		for y <= l.ChunkPosY {
-			l.TileMap.TestQuadByLevel(l.Level, x, y).Draw(img)
+			l.TileMap.GetQuadByLevel(l.Level, x, y).Draw(img)
 			y++
 		}
 		x++
