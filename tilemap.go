@@ -97,3 +97,12 @@ func (tm *TileMap) Draw(img *ebiten.Image) {
 		q.Draw(img)
 	}
 }
+
+// NewLoader returns a new loader from a TileMap, based on given parameters.
+func (tm *TileMap) NewLoader(level ChunkLevel, radius int) *Loader {
+	return &Loader{
+		TileMap: tm,
+		Level:   level,
+		Radius:  radius,
+	}
+}
