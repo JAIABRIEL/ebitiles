@@ -12,7 +12,11 @@ At the moment, it simply supports storing and drawing tiles at a given position 
 * Place tiles (`*ebiten.Image`) at position and layer.
 * Tiles draw their layers on each other and will buffer the result for fast performance.
 * Just draw chunks of given level (chunk at level 3 is 8x8 tiles) without drawing the entire map.
+* Animated tiles. It works but is not stable yet.
 
+## Known bugs
+
+* Chunk loader will crash when end of map is reached by loader borders.
 
 ## Planned Features
 
@@ -22,16 +26,11 @@ I already made it working with Tiled maps on my machine.
 It's easy but I don't intend to put Tiled support directly in this lib.
 However, you'll find it in `examples/` soon :)
 
-### Chunk loader
+### Chunk loader (WIP)
 
 Load chunks based on a position. 
 For example draw the chunk level 3 (8x8) on which the player stands and all nearby 8x8 chunks.
 This shouldn't be that hard to implement, since all dependencies for this are already implemented.
-
-### Animated tiles
-
-Simply animated tiles based on my [animation lib](https://github.com/JAIABRIEL/gonimator).
-It's a bit tricky with different layers and buffers but I intend to make it as performance friendly as possible.
 
 ### Pseudo 3D
 
