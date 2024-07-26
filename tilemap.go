@@ -84,8 +84,8 @@ func (tm *TileMap) Redraw() {
 func (tm *TileMap) GetQuadByLevel(globalLevel ChunkLevel, x, y int) Quad {
 	return tm.quads[tm.posToIndex(tm.toPositive(x), tm.toPositive(y))].GetByLevel(
 		tm.level-(globalLevel%tm.level),
-		tm.translatePos(x),
-		tm.translatePos(y))
+		tm.translateNegativePos(x),
+		tm.translateNegativePos(y))
 }
 
 // Draw will pass an *ebiten.Image down the tree.
@@ -100,9 +100,12 @@ func (tm *TileMap) Draw(img *ebiten.Image) {
 
 // NewLoader returns a new loader from a TileMap, based on given parameters.
 func (tm *TileMap) NewLoader(level ChunkLevel, radius int) *Loader {
-	return &Loader{
+	l := &Loader{
 		TileMap: tm,
 		Level:   level,
 		Radius:  radius,
 	}
+	l.Init()
+
+	return l
 }
