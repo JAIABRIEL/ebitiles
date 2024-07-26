@@ -31,10 +31,10 @@ func (l *Loader) Update(x, y int) {
 func (l *Loader) Draw(img *ebiten.Image) {
 	x := l.ChunkPosX - l.Radius
 
-	for x <= l.ChunkPosX {
+	for x <= l.ChunkPosX+l.Radius {
 		y := l.ChunkPosY - l.Radius
-		for y <= l.ChunkPosY {
-			l.TileMap.GetQuadByLevel(l.Level, x, y).Draw(img)
+		for y <= l.ChunkPosY+l.Radius {
+			l.TileMap.GetQuadByLevel(l.Level+1, l.chunkSize*x, l.chunkSize*y).Draw(img)
 			y++
 		}
 		x++
